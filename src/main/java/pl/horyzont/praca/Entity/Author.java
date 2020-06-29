@@ -13,7 +13,7 @@ public class Author {
     private Integer liczbaPublikacji;
     private Integer telefonAutora;
 
-    @ManyToMany (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany (cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable (
             name = "authors_books",
             joinColumns = @JoinColumn (name = "author_id"),

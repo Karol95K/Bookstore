@@ -10,7 +10,7 @@ Dodałeś następujące książki:
 <br>
 <span th:text="${book}" >...</span><br>
 
-<a href="#" th:href="@{/dodaj_autor(id_ksiazka=${book.id_ksiazka})}" class="btn btn-danger" >
+<a href="#" th:href="@{/form_autor(id_ksiazka=${book.id_ksiazka})}" class="btn btn-danger" >
     <i class="fa fa-trash-o fa-lg" ></i><b>Dodaj kolejnego autora do książki</b></a>
 <br>
 <a href="#" th:href="@{/pokaz2}" class="btn btn-primary" >

@@ -26,7 +26,7 @@ public class BookController {
     }
 
 
-    // Dodaj książkę wraz z autorem
+    // Dodaj książkę wraz z autorem z formularza głównego
     @RequestMapping("/dodaj")
     public String dodajemyDane(
             @RequestParam("tytul") String tytul,
@@ -41,54 +41,41 @@ public class BookController {
             Model model) throws Exception {
         Book book = new Book(tytul, rokWydania, isbn, liczbaEgzemplarzy, cenaZaKsiazke);
         Author author = new Author(imie, nazwisko, liczbaPublikacji, telefonAutora);
-       // Author author2 = new Author("Jan", "Wojtaszek", 22, 11);
 
-
+        // dodanie autora do książki i vice versa
         author.addBook(book);
-        //author2.addBook(book);
-        authorRepo.save(author);
-        //authorRepo.save(author2);
-        bookRepo.save(book);
 
+        bookRepo.save(book);
+        authorRepo.save(author);
+
+        // zestawienie id autora do id książki
+        book.setBook_map(author.getId_autor(), book.getId_ksiazka());
+        bookRepo.save(book);
 
         model.addAttribute("book", book);
         model.addAttribute("author", author);
-
+        System.out.println("\nDane po wstawieniu z formularza głównego:");
         System.out.println(book);
         System.out.println(author);
-
-        bookRepo.save(book);
-        model.addAttribute("book", book);
-        model.addAttribute("author", author);
-
-        book.setBook_map(author.getId_autor(), book.getId_ksiazka());
-        //book.setBook_map(author2.getId_autor(), book.getId_ksiazka());
-        System.out.println("To jest mapa" + book.getBook_map());
-        bookRepo.save(book); ///
-        model.addAttribute("book", book); ////
-        System.out.println(book);
-
+        System.out.println("Zestawienie id_a do id_b: " + book.getBook_map());
 
         return "Widok";
     }
 
-    // Przejście do formularza dodania autora
-    @RequestMapping("/dodaj_autor")
-    public String dodajemyDane(
+    // Formularz dodania autora
+    @RequestMapping("/form_autor")
+    public String formAutor(
             @RequestParam("id_ksiazka") Integer id_ksiazka, Model model) throws Exception {
+
         Book book = bookRepo.getOne(id_ksiazka);
         model.addAttribute("book", book);
-
-        System.out.println("To jest mapa" + book.getBook_map());
-
-        System.out.println(book);
 
         return "form_author";
     }
 
-    // Dodanie autora
-    @RequestMapping("/dodaj_autora")
-    public String dodajemyAutora(
+    // Dodanie autora z formularza
+    @RequestMapping("/dodaj_autor")
+    public String dodajemyDane(
             @RequestParam("id_ksiazka") Integer id_ksiazka,
             @RequestParam("imie") String imie,
             @RequestParam("nazwisko") String nazwisko,
@@ -97,45 +84,44 @@ public class BookController {
             Model model) throws Exception {
 
         Book book = bookRepo.getOne(id_ksiazka);
-        System.out.println("Takie mamy mapa: " + book.getBook_map());
         Author author = new Author(imie, nazwisko, liczbaPublikacji, telefonAutora);
 
         author.addBook(book);
         authorRepo.save(author);
         bookRepo.save(book);
 
-        model.addAttribute("book", book);
-        model.addAttribute("author", author);
-        System.out.println(book);
-        System.out.println(author);
-
+        book.setBook_map(author.getId_autor(), book.getId_ksiazka());
         bookRepo.save(book);
 
-        book.setBook_map(author.getId_autor(), book.getId_ksiazka());
-        System.out.println("To jest mapa" + book.getBook_map());
-        bookRepo.save(book);   /////
-        model.addAttribute("book", book);  /////
+        System.out.println("\nDane po wstawieniu autora z formularza:");
+        System.out.println(book);
+        System.out.println(author);
+        System.out.println("Zestawienie id_a do id_b: " + book.getBook_map());
 
-        return "Widok";
+        Set<Integer> authors_id = book.getKeysByValue(id_ksiazka);
+
+        model.addAttribute("book", book);
+        model.addAttribute("author", authorRepo.findAllById(authors_id));
+
+        return "Pokaz_autor";
     }
 
-    // Wyświetlenie danych autora
+    // Wyświetlenie autorów
     @RequestMapping("/autor")
     public String dodajemydane_2(@RequestParam("id_ksiazka") Integer id_ksiazka, Model model) throws Exception {
-        System.out.println(bookRepo.getOne(id_ksiazka)); //findById(id_ksiazka)
         Book book = bookRepo.getOne(id_ksiazka);
 
         Set<Integer> authors_id = book.getKeysByValue(id_ksiazka);
-        System.out.println("Takie id maja autorzy" + authors_id);
+        System.out.println("\nTakie id maja autorzy " + authors_id + " książki o id "+ book.getId_ksiazka());
 
-        System.out.println("Jakich autorow mamy" + authorRepo.findAllById(authors_id));
+        System.out.println("Jakich autorow mamy " + authorRepo.findAllById(authors_id));
         model.addAttribute("author", authorRepo.findAllById(authors_id));
-        model.addAttribute("book", bookRepo.getOne(id_ksiazka)); //findById(id_ksiazka).get()
+        model.addAttribute("book", bookRepo.getOne(id_ksiazka));
 
-        return "Pokaz2_1";
+        return "Pokaz_autor";
     }
 
-    // Wyświetlenie danych zbioru ksiegarni
+    // Wyświetlenie zbioru ksiegarni
     @RequestMapping("/pokaz2")
     public String pokaz2(Model model) throws Exception {
         int i = 0;
@@ -156,7 +142,7 @@ public class BookController {
         Book book = bookRepo.getOne(id_ksiazka);
 
         Set<Integer> authors_id = book.getKeysByValue(id_ksiazka);
-        System.out.println("Takie id maja autorzy" + authors_id);
+        System.out.println("\nTakie id maja autorzy" + authors_id);
 
         int set_size = authors_id.size();
         int[] tab = new int[set_size];
@@ -194,7 +180,7 @@ public class BookController {
         Author author=authorRepo.getOne(id_autor);
         Book book = bookRepo.getOne(id_ksiazka);
 
-         System.out.println("Usuwamy autora o id " + id_autor +"jego dane"+authorRepo.getOne(id_autor));
+         System.out.println("\nUsuwamy autora o id " + id_autor +"jego dane"+authorRepo.getOne(id_autor));
            // author.removeBook(book);
 
 
@@ -213,7 +199,7 @@ public class BookController {
 
         model.addAttribute("book", bookRepo.getOne(id_ksiazka));
         model.addAttribute("author",authorRepo.findAllById(authors_id));  //
-        return "Pokaz2_1";
+        return "Pokaz_autor";
     }
 
     // Przekierowanie do aktualizacji danych książki
@@ -257,7 +243,7 @@ public class BookController {
             Model model) throws Exception {
        // lepsza krotsza wersja
        Book book1 = bookRepo.getOne(id_ksiazka);
-        System.out.println("Pobrana z bazy ksiazka"+book1);
+        System.out.println("\nPobrana z bazy ksiazka"+book1);
         book1.setTytul(tytul);
         book1.setRokWydania(rokWydania);
         book1.setIsbn(isbn);
@@ -338,7 +324,7 @@ public class BookController {
         model.addAttribute("book", book);
         model.addAttribute("author", author);
         // dodajemydane_2(author, model);
-        System.out.println(author);
+        System.out.println("\n"+author);
         System.out.println(book);
 
         return "Widok";
@@ -356,7 +342,7 @@ public class BookController {
     public String pokaz(Model model) throws Exception {
         int i = 0;
         for (Book book : bookRepo.findAll()) {
-            System.out.println(book);
+            System.out.println("\n"+book);
         }
         model.addAttribute("book", bookRepo.findAll());
         return "Pokaz";
@@ -368,4 +354,8 @@ public class BookController {
         return "Formularz";
     }
 
+    @RequestMapping("/")
+    String zbior() {
+        return "Pokaz2";
+    }
 }
