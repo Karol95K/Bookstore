@@ -20,9 +20,6 @@ public class Book {
     @ManyToMany (mappedBy = "books")
     private Set<Author> authors = new HashSet<>();
 
-   // @Transient
-   // public Set <Integer> index_autor = new HashSet<>();
-
     @ElementCollection()
     @CollectionTable(name="Map_books_authors", joinColumns=@JoinColumn(name="Map_id"))
     @MapKeyColumn (name = "Key_author_Id")
@@ -33,11 +30,12 @@ public class Book {
         book_map.put(klucz_idAutor, wartosc_idKsiazka);
     }
 
-
     public  Map<Integer, Integer> getBook_map() {
         return book_map;
     }
 
+
+    // Klucz - id_autor, wartosc - id_ksiazka
     public  Set<Integer> getKeysByValue( Integer value) {
         Set<Integer> keys = new HashSet<Integer>();
         for (Map.Entry<Integer, Integer> entry : book_map.entrySet()) {
@@ -47,21 +45,6 @@ public class Book {
         }
         return keys;
     }
-/*
-    public  List<Object> getKeysFromValue( Object value){
-        List <Object>list = new ArrayList<Object>();
-        for(Object o:book_map.keySet()){
-            if(book_map.get(o).equals(value)) {
-                list.add(o);
-            }
-        }
-        return list;
-    }
- */
-
-
-
-
 
     public Book() {
     }

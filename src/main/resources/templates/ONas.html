@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head lang="pl">
+    <meta charset="UTF-8">
+    <title>O nas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/mainStyle.css" th:href="@{/mainStyle.css}"  rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-color">
+    <ul>
+        <li>
+            <img class="navbar-image" src="../images/book-icon.png"  alt="ikona książki">
+        </li>
+        <li class="navbar-text">
+            <a href="/">Strona główna</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/form'}">Dodaj książkę</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/onas'}">O nas</a>
+        </li>
+    </ul>
+</nav>
+        Tutaj pojawi się tekst o ksiegarni
+</body>
+</html>

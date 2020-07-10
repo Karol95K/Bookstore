@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj autora</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/mainStyle.css" th:href="@{/mainStyle.css}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-color">
+    <ul>
+        <li>
+            <img class="navbar-image" src="../images/book-icon.png" alt="ikona książki">
+        </li>
+        <li class="navbar-text">
+            <a href="/pokaz2">Strona główna</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/form'}">Dodaj książkę</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/onas'}">O nas</a>
+        </li>
+    </ul>
+</nav>
+
+<form class="form" action="http://www.localhost:8080/dodaj_autor">
+    <!--action="http://www.localhost:8080/dodaj_autor"  th:object="{book}"-->
+    <table>
+        <tr>
+            <td><input name="id_ksiazka" hidden th:value="*{book.id_ksiazka}"></td>
+        </tr>
+        <tr>
+            <td>Podaj imię autora</td>
+            <td><input name="imie"></td>
+        </tr>
+        <tr>
+            <td>Podaj nazwisko autora</td>
+            <td><input name="nazwisko"></td>
+        </tr>
+        <tr>
+            <td>Podaj liczbę publikacji autora</td>
+            <td><input name="liczbaPublikacji"></td>
+        </tr>
+        <tr>
+            <td>Podaj numer telefonu do autora</td>
+            <td><input name="telefonAutora"></td>
+        </tr>
+        <tr>
+            <td colspan="1">
+                <input type="submit">
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+</body>
+</html>

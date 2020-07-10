@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="pl">
+    <meta charset="UTF-8">
+    <title>Aktualizuj informacje o książce</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/mainStyle.css" th:href="@{/mainStyle.css}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-color">
+    <ul>
+        <li>
+            <img class="navbar-image" src="../images/book-icon.png" alt="ikona książki">
+        </li>
+        <li class="navbar-text">
+            <a href="/pokaz2">Strona główna</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/form'}">Dodaj książkę</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/onas'}">O nas</a>
+        </li>
+    </ul>
+</nav>
+
+<form class="form" th:action="@{/aktualizuj}">
+    <table>
+        <tr>
+            <td>Podaj tytuł</td>
+            <td><input name="tytul" th:field="*{book.tytul}"></td>
+        </tr>
+        <tr>
+            <td>Podaj rok wydania książki</td>
+            <td><input name="rokWydania" th:field="*{book.rokWydania}"></td>
+        </tr>
+        <tr>
+            <td>Podaj numer ISBN</td>
+            <td><input name="isbn" th:field="*{book.isbn}"></td>
+        </tr>
+        <tr>
+            <td>Podaj liczbę dostępnych egzemplarzy</td>
+            <td><input name="liczbaEgzemplarzy" th:field="*{book.liczbaEgzemplarzy}"></td>
+        </tr>
+        <tr>
+            <td>Podaj cene za książkę</td>
+            <td><input name="cenaZaKsiazke" th:field="*{book.cenaZaKsiazke}">
+                <input type="hidden" name="id_ksiazka" th:field="*{book.id_ksiazka}"></td>
+        </tr>
+        <tr>
+            <td colspan="1">
+                <input type="submit">
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

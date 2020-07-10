@@ -4,13 +4,32 @@
     <meta charset="UTF-8">
     <title>Dodaj książkę do zbioru księgarni</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/mainStyle.css" th:href="@{/mainStyle.css}"  rel="stylesheet">
 </head>
 <body>
-<form action="http://www.localhost:8080/dodaj">
+
+<nav class="navbar navbar-color">
+    <ul>
+        <li>
+            <img class="navbar-image" src="../images/book-icon.png"  alt="ikona książki">
+        </li>
+        <li class="navbar-text">
+            <a href="/pokaz2">Strona główna</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/form'}">Dodaj książkę</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/onas'}">O nas</a>
+        </li>
+    </ul>
+</nav>
+
+<form class="form" action="http://www.localhost:8080/dodaj" th:method="post">
     <table>
         <tr>
-            <td>Podaj tytuł</td>
-            <td><input name ="tytul"></td>
+            <td>Podaj tytuł </td>
+            <td><input name ="tytul" ></td>
         </tr>
         <tr>
             <td>Podaj rok wydania książki</td>
@@ -25,7 +44,7 @@
             <td><input name ="liczbaEgzemplarzy"></td>
         </tr>
         <tr>
-            <td>Podaj cene za książkę</td>
+            <td>Podaj cenę za książkę</td>
             <td><input name ="cenaZaKsiazke"></td>
         </tr>
         <tr>
@@ -45,8 +64,8 @@
             <td><input name="telefonAutora"></td>
         </tr>
         <tr>
-            <td colspan="1">
-                <input type="submit">
+            <td  colspan="1">
+                <input  type="submit">
             </td>
         </tr>
     </table>
