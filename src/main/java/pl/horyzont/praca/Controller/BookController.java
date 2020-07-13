@@ -59,7 +59,7 @@ public class BookController {
         System.out.println(author);
         System.out.println("Zestawienie id_a do id_b: " + book.getBook_map());
 
-        return "Widok";
+        return "Widok";   ///book/Pokaz2
     }
 
     // Wyświetlenie zbioru ksiegarni

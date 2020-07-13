@@ -57,3 +57,18 @@
     margin-left: 20px;
     margin-right: 20px;
 }
+
+footer {
+    background-color: #474b61;
+    padding: 5px;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+footer pre {
+    text-align: center;
+    color: #fff;
+    margin: 0;
+}
