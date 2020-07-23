@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="pl">
     <meta charset="UTF-8">
-    <title>Aktualizuj informacje o książce</title>
+    <title>Aktualizuj dane wydawcy</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../static/mainStyle.css" th:href="@{/mainStyle.css}" rel="stylesheet">
+
 </head>
 <body>
 
@@ -26,31 +27,22 @@
     </ul>
 </nav>
 
-<form class="form" th:action="@{/aktualizuj}">
+<form class="form" th:action="@{/aktualizuj_wydawca}">
     <table>
         <tr>
-            <td colspan="2" class="one-object-form"> Zaktualizuj informacje dotyczące książki</td>
+            <td colspan="2" class="one-object-fom">Zaktualizuj informacje o wydawcy</td>
         </tr>
         <tr>
-            <td>Tytuł</td>
-            <td><input name="tytul" th:field="*{book.tytul}"></td>
+            <td><input name="nazwa" th:field="*{publisher.namePublisher}"></td>
         </tr>
         <tr>
-            <td>Rok wydania</td>
-            <td><input name="rokWydania" th:field="*{book.rokWydania}"></td>
+            <td><input name="nazwa" th:field="*{publisher.cityPublisher}"></td>
         </tr>
         <tr>
-            <td>Numer ISBN</td>
-            <td><input name="isbn" th:field="*{book.isbn}"></td>
-        </tr>
-        <tr>
-            <td>Liczba egzemplarzy</td>
-            <td><input name="liczbaEgzemplarzy" th:field="*{book.liczbaEgzemplarzy}"></td>
-        </tr>
-        <tr>
-            <td>Cene za sztukę</td>
-            <td><input name="cenaZaKsiazke" th:field="*{book.cenaZaKsiazke}">
-                <input type="hidden" name="id_ksiazka" th:field="*{book.id_ksiazka}"></td>
+            <td><input name="nazwa" th:field="*{publisher.phonePublisher}"></td>
+            <td><input type="hidden" name="id_ksiazka" th:field="*{book.id_ksiazka}"></td>
+            <td><input type="hidden" name="id_wydawca" th:field="*{publisher.id_publisher}"></td>
+
         </tr>
         <tr>
             <td colspan="2">

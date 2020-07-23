@@ -28,43 +28,64 @@
 <form class="form" action="http://www.localhost:8080/dodaj" th:method="post">
     <table>
         <tr>
-            <td>Podaj tytuł </td>
+            <td colspan="2" class="one-object-form"> Wprowadź informacje dotyczące książki</td>
+        </tr>
+        <tr>
+            <td>Tytuł </td>
             <td><input name ="tytul" ></td>
         </tr>
         <tr>
-            <td>Podaj rok wydania książki</td>
+            <td>Rok wydania</td>
             <td><input name ="rokWydania"></td>
         </tr>
         <tr>
-            <td>Podaj numer ISBN</td>
+            <td>Numer ISBN</td>
             <td><input name ="isbn"></td>
         </tr>
         <tr>
-            <td>Podaj liczbę dostępnych egzemplarzy</td>
+            <td>Liczba egzemplarzy</td>
             <td><input name ="liczbaEgzemplarzy"></td>
         </tr>
         <tr>
-            <td>Podaj cenę za książkę</td>
+            <td>Cena za sztukę</td>
             <td><input name ="cenaZaKsiazke"></td>
         </tr>
         <tr>
-            <td>Podaj imię autora</td>
+            <td colspan="2" class="one-object-form"> Wprowadź informacje dotyczące autora</td>
+        </tr>
+        <tr>
+            <td>Imię</td>
             <td><input name="imie"></td>
         </tr>
         <tr>
-            <td>Podaj nazwisko autora</td>
+            <td>Nazwisko</td>
             <td> <input name="nazwisko"></td>
         </tr>
         <tr>
-            <td>Podaj liczbę publikacji autora</td>
+            <td>Liczba publikacji</td>
             <td><input name="liczbaPublikacji"></td>
         </tr>
         <tr>
-            <td>Podaj numer telefonu do autora</td>
+            <td>Numer telefonu</td>
             <td><input name="telefonAutora"></td>
         </tr>
         <tr>
-            <td  colspan="1">
+            <td colspan="2" class="one-object-form"> Wprowadź informacje dotyczące wydawnictwa</td>
+        </tr>
+        <tr>
+            <td>Nazwa</td>
+            <td><input name="namePublisher"></td>
+        </tr>
+        <tr>
+            <td>Miasto</td>
+            <td><input name="cityPublisher"></td>
+        </tr>
+        <tr>
+            <td>Numer telefonu</td>
+            <td><input name="phonePublisher"></td>
+        </tr>
+        <tr>
+            <td  colspan="2">
                 <input  type="submit">
             </td>
         </tr>

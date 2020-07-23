@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.horyzont.praca.Entity.Author;
 import pl.horyzont.praca.Entity.Book;
+import pl.horyzont.praca.Entity.Publisher;
 import pl.horyzont.praca.Repository.AuthorRepo;
 import pl.horyzont.praca.Repository.BookRepo;
+import pl.horyzont.praca.Repository.PublisherRepo;
 
 import java.util.*;
 
@@ -18,11 +20,13 @@ import java.util.*;
 public class BookController {
     private BookRepo bookRepo;
     private AuthorRepo authorRepo;
+    private PublisherRepo publisherRepo;
 
     @Autowired
-    public BookController(BookRepo bookRepo, AuthorRepo authorRepo) {
+    public BookController(BookRepo bookRepo, AuthorRepo authorRepo, PublisherRepo publisherRepo) {
         this.bookRepo = bookRepo;
         this.authorRepo = authorRepo;
+        this.publisherRepo = publisherRepo;
     }
 
 
@@ -38,28 +42,54 @@ public class BookController {
             @RequestParam("nazwisko") String nazwisko,
             @RequestParam("liczbaPublikacji") Integer liczbaPublikacji,
             @RequestParam("telefonAutora") Integer telefonAutora,
+            @RequestParam("namePublisher") String namePublisher,
+            @RequestParam ("cityPublisher") String cityPublisher,
+            @RequestParam ("phonePublisher") Integer phonePublisher,
             Model model) throws Exception {
         Book book = new Book(tytul, rokWydania, isbn, liczbaEgzemplarzy, cenaZaKsiazke);
         Author author = new Author(imie, nazwisko, liczbaPublikacji, telefonAutora);
+        Publisher publisher = new Publisher(namePublisher, cityPublisher, phonePublisher);
+        publisher.insertBookToList(book);
+        publisherRepo.save(publisher);
+        book.setPublisher(publisher);
+        //System.out.println("\nPublisher" + publisher);
+
+        System.out.println("Name "+         book.getPublisherId());
+
+
+
 
         // dodanie autora do książki i vice versa
         author.addBook(book);
-
+        System.out.println("11111");
+        authorRepo.save(author); //do usuniecia -> o to chodzi jednak
         bookRepo.save(book);
-        authorRepo.save(author);
+       // authorRepo.save(author); //do usuniecia raczej
+        System.out.println("222222");
+
+
 
         // zestawienie id autora do id książki
         book.setBook_map(author.getId_autor(), book.getId_ksiazka());
+
+
         bookRepo.save(book);
+
 
         model.addAttribute("book", book);
         model.addAttribute("author", author);
+        model.addAttribute("publisher", publisher);
         System.out.println("\nDane po wstawieniu z formularza głównego:");
         System.out.println(book);
         System.out.println(author);
         System.out.println("Zestawienie id_a do id_b: " + book.getBook_map());
 
-        return "Widok";   ///book/Pokaz2
+        System.out.println("\nPublisher" + publisher); //do usuniecia
+        System.out.println("\nLista book" + publisher.getBookList()); //do usuniecia
+        System.out.println("\nPobranie ksiazki po id" + bookRepo.getOne(book.getId_ksiazka())); //do usuniecia
+
+        model.addAttribute("book",bookRepo.findAll()); //gdy Widok return to usun
+        return "book/Pokaz2";   ///book/Pokaz2  --tylko 1 wiersz POPRAW   Widok
     }
 
     // Wyświetlenie zbioru ksiegarni
@@ -72,6 +102,7 @@ public class BookController {
 
         model.addAttribute("book", bookRepo.findAll());
         model.addAttribute("author", authorRepo.findAll());
+        model.addAttribute("publisher",publisherRepo.findAll());
 
         return "/book/Pokaz2";
     }
@@ -81,6 +112,8 @@ public class BookController {
     public String przekieruj(
             @RequestParam("id_ksiazka") Integer id_ksiazka,
             Model model) throws Exception {
+
+        System.out.println("Pirzekierowany"+bookRepo.getOne(id_ksiazka));
 
         model.addAttribute("book", bookRepo.getOne(id_ksiazka));  //findById(id_ksiazka)
 
@@ -144,8 +177,13 @@ public class BookController {
             }
         }
 
+
+        Integer id_publisher= book.getPublisherId();
+
         //usuwanie ksiazki
         bookRepo.deleteById(id_ksiazka);
+        // usuniecie wydawcy
+        publisherRepo.deleteById(id_publisher);
 
         model.addAttribute("book", bookRepo.findAll());
         return "/book/Pokaz2";

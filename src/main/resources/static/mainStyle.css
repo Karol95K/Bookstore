@@ -35,6 +35,17 @@
     color: #00a6b6;
 }
 
+ .aboutUs {
+    border: 35px white solid;
+    border-collapse: inherit;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+}
+
  .form table{
     border: 35px white solid;
     border-collapse: inherit;
@@ -49,13 +60,25 @@
 .form table td{
     padding: 3px;
     text-align:center;
-    font-size: 20px;
+    font-size: 17px;
     font-family: sans-serif;
+}
+
+.one-object-form {
+    border: solid #a09fab 6px;
+    color: #cc7575;
+    background-color: antiquewhite;
+    font-weight: bold;
+    border-radius: 41px;
 }
 
 .table-result {
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.link {
+    margin-left: 20px;
 }
 
 footer {

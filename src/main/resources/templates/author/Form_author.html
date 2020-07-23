@@ -30,26 +30,29 @@
     <!--action="http://www.localhost:8080/dodaj_autor"  th:object="{book}"-->
     <table>
         <tr>
+            <td colspan="2" class="one-object-form">Wprowadź infromacje dotyczące autora</td>
+        </tr>
+        <tr>
             <td><input name="id_ksiazka" hidden th:value="*{book.id_ksiazka}"></td>
         </tr>
         <tr>
-            <td>Podaj imię autora</td>
+            <td>Imię </td>
             <td><input name="imie"></td>
         </tr>
         <tr>
-            <td>Podaj nazwisko autora</td>
+            <td>Nazwisko </td>
             <td><input name="nazwisko"></td>
         </tr>
         <tr>
-            <td>Podaj liczbę publikacji autora</td>
+            <td>Liczba publikacji</td>
             <td><input name="liczbaPublikacji"></td>
         </tr>
         <tr>
-            <td>Podaj numer telefonu do autora</td>
+            <td>Numer telefonu</td>
             <td><input name="telefonAutora"></td>
         </tr>
         <tr>
-            <td colspan="1">
+            <td colspan="2">
                 <input type="submit">
             </td>
         </tr>

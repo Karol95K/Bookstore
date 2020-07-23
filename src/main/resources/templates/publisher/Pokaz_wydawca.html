@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="pl">
     <meta charset="UTF-8">
-    <title>Aktualizuj informacje o książce</title>
+    <title> Dane wydawcy</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../static/mainStyle.css" th:href="@{/mainStyle.css}" rel="stylesheet">
@@ -26,39 +26,31 @@
     </ul>
 </nav>
 
-<form class="form" th:action="@{/aktualizuj}">
-    <table>
+<p align="center">
+<h2 align="center"> Dane wydawcy książki</h2></p> <br>
+<div class="table-result">
+    <table class="table table-striped">
         <tr>
-            <td colspan="2" class="one-object-form"> Zaktualizuj informacje dotyczące książki</td>
+            <th> Nazwa</th>
+            <th> Miasto</th>
+            <th> Numer kontaktowy</th>
+            <th> Aktualizuj</th>
         </tr>
         <tr>
-            <td>Tytuł</td>
-            <td><input name="tytul" th:field="*{book.tytul}"></td>
-        </tr>
-        <tr>
-            <td>Rok wydania</td>
-            <td><input name="rokWydania" th:field="*{book.rokWydania}"></td>
-        </tr>
-        <tr>
-            <td>Numer ISBN</td>
-            <td><input name="isbn" th:field="*{book.isbn}"></td>
-        </tr>
-        <tr>
-            <td>Liczba egzemplarzy</td>
-            <td><input name="liczbaEgzemplarzy" th:field="*{book.liczbaEgzemplarzy}"></td>
-        </tr>
-        <tr>
-            <td>Cene za sztukę</td>
-            <td><input name="cenaZaKsiazke" th:field="*{book.cenaZaKsiazke}">
-                <input type="hidden" name="id_ksiazka" th:field="*{book.id_ksiazka}"></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit">
+            <td th:text="${publisher.namePublisher}"> Nazwa</td>
+            <td th:text="${publisher.cityPublisher}"> Miasto</td>
+            <td th:text="${publisher.phonePublisher}"> Numer kontaktowy</td>
+            <td><a href="#"
+                   th:href="@{/przekieruj_wydawca(id_wydawca=${publisher.id_publisher}, id_ksiazka=${book.id_ksiazka})}"
+                   class="btn btn-primary">
+                <i class="fa fa-trash-o fa-lg"></i>Aktualizuj </a></td>
             </td>
         </tr>
     </table>
-</form>
+</div>
+<div class="link">
+<a href="#" th:href="@{/pokaz2}"><i class="fa fa-trash-o fa-lg"></i>Powrót</a>
+</div>
 
 <footer>
     <pre> Web page author: Karol Kiszteliński    |    Copyright © 2020</pre>

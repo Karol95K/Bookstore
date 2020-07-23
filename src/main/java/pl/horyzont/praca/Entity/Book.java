@@ -1,10 +1,7 @@
 package pl.horyzont.praca.Entity;
 
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 public class Book {
@@ -17,13 +14,20 @@ public class Book {
     private Integer liczbaEgzemplarzy;
     private Integer cenaZaKsiazke;
 
+    @ManyToOne
+    @JoinColumn (name = "id_publisher")
+    private Publisher publisher;
+
+
+
     @ManyToMany (mappedBy = "books")
     private Set<Author> authors = new HashSet<>();
 
-    @ElementCollection()
-    @CollectionTable(name="Map_books_authors", joinColumns=@JoinColumn(name="Map_id"))
-    @MapKeyColumn (name = "Key_author_Id")
-    @Column (name = "Value_book_Id")
+//    @ElementCollection()
+//    @CollectionTable(name="Map_books_authors", joinColumns=@JoinColumn(name="Map_id"))
+//    @MapKeyColumn (name = "Key_author_Id")
+//    @Column (name = "Value_book_Id")
+    @Transient
     private  Map<Integer, Integer> book_map = new TreeMap<Integer, Integer>();
 
     public  void setBook_map(Integer klucz_idAutor, Integer wartosc_idKsiazka) {
@@ -75,7 +79,17 @@ public class Book {
         this.cenaZaKsiazke = cenaZaKsiazke;
     }
 
+    public Integer getPublisherId() {
+        return publisher.getId_publisher();
+    }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 
     public Set<Author> getAuthors() {
         return authors;
@@ -131,7 +145,6 @@ public class Book {
     }
 
 
-
     @Override
     public String toString() {
         return "Book{" +
@@ -141,10 +154,9 @@ public class Book {
                 ", isbn=" + isbn +
                 ", liczbaEgzemplarzy=" + liczbaEgzemplarzy +
                 ", cenaZaKsiazke=" + cenaZaKsiazke +
-                ", book_map=" + book_map +
+                ", publisher=" + publisher +
                 ", authors=" + authors +
+                ", book_map=" + book_map +
                 '}';
     }
-
-
 }

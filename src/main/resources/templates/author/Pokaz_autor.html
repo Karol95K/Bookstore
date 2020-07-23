@@ -28,36 +28,40 @@
 
 <p>
 <h2 align="center">Dane autora/ów</h2></p> <br>
-<table class="table table-striped">
-    <tr>
-        <th>Imie</th>
-        <th>Nazwisko</th>
-        <th>Liczba publikacji</th>
-        <th>Numer telefonu</th>
-        <th class="text-center">Kasuj ?</th>
-        <th class="text-center">Aktualizuj</th>
-    </tr>
-    <tr th:each="wpis: ${author}">
-        <td th:text="${wpis.imie}">Imie</td>
-        <td th:text="${wpis.nazwisko}">Nazwisko</td>
-        <td th:text="${wpis.liczbaPublikacji}">Liczba publikacji</td>
-        <td th:text="${wpis.telefonAutora}">Numer telefonu</td>
-        <td align="center"><a href="#"
-                              th:href="@{/kasuj_autor(id_autor=${wpis.id_autor}, id_ksiazka=${book.id_ksiazka})}"
-                              class="btn btn-danger">
-            <i class="fa fa-trash-o fa-lg"></i>Kasuj</a></td>
-        <td align="center"><a href="#"
-                              th:href="@{/przekieruj_autor(id_autor=${wpis.id_autor}, id_ksiazka=${book.id_ksiazka})}"
-                              class="btn btn-primary">
-            <i class="fa fa-trash-o fa-lg"></i>Aktualizuj </a></td>
-    </tr>
-</table>
+<div class="table-result">
+    <table class="table table-striped">
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Liczba publikacji</th>
+            <th>Numer telefonu</th>
+            <th class="text-center">Kasuj ?</th>
+            <th class="text-center">Aktualizuj</th>
+        </tr>
+        <tr th:each="wpis: ${author}">
+            <td th:text="${wpis.imie}">Imie</td>
+            <td th:text="${wpis.nazwisko}">Nazwisko</td>
+            <td th:text="${wpis.liczbaPublikacji}">Liczba publikacji</td>
+            <td th:text="${wpis.telefonAutora}">Numer telefonu</td>
+            <td align="center"><a href="#"
+                                  th:href="@{/kasuj_autor(id_autor=${wpis.id_autor}, id_ksiazka=${book.id_ksiazka})}"
+                                  class="btn btn-danger">
+                <i class="fa fa-trash-o fa-lg"></i>Kasuj</a></td>
+            <td align="center"><a href="#"
+                                  th:href="@{/przekieruj_autor(id_autor=${wpis.id_autor}, id_ksiazka=${book.id_ksiazka})}"
+                                  class="btn btn-primary">
+                <i class="fa fa-trash-o fa-lg"></i>Aktualizuj </a></td>
+        </tr>
+    </table>
+</div>
 
+<div class="link">
 <a href="#" th:href="@{/form_autor(id_ksiazka=${book.id_ksiazka})}">
     <i class="fa fa-trash-o fa-lg"></i>Dodaj autora</a>
 <br>
 <a href="#" th:href="@{/pokaz2}">
     <i class="fa fa-trash-o fa-lg"></i>Powrót</a>
+</div>
 
 
 <table>
