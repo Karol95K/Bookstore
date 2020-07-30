@@ -23,11 +23,11 @@ public class Book {
     @ManyToMany (mappedBy = "books")
     private Set<Author> authors = new HashSet<>();
 
-//    @ElementCollection()
-//    @CollectionTable(name="Map_books_authors", joinColumns=@JoinColumn(name="Map_id"))
-//    @MapKeyColumn (name = "Key_author_Id")
-//    @Column (name = "Value_book_Id")
-    @Transient
+    @ElementCollection()
+    @CollectionTable(name="Map_books_authors", joinColumns=@JoinColumn(name="Map_id"))
+    @MapKeyColumn (name = "Key_author_Id")
+    @Column (name = "Value_book_Id")
+//    @Transient
     private  Map<Integer, Integer> book_map = new TreeMap<Integer, Integer>();
 
     public  void setBook_map(Integer klucz_idAutor, Integer wartosc_idKsiazka) {
