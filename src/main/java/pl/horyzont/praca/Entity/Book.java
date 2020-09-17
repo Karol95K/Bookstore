@@ -1,24 +1,35 @@
 package pl.horyzont.praca.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.*;
 
 @Entity
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id_ksiazka;
+
+    @Pattern(regexp = "^[\\w\\W]{2,300}$", message = "Podaj od 2 do 300 znaków.")
     private String tytul;
+
+   // @Pattern(regexp = "^[1-9][0-9]{3}$", message = "Podaj czterocyfrowy rok wydania")
+    @Min(value = 1000, message = "Podaj realny rok wydania") @Max(value = 2100, message = "Podaj realny rok wydania")
     private Integer rokWydania;
-    private Long isbn;
-    private Integer liczbaEgzemplarzy;
-    private Integer cenaZaKsiazke;
+
+    @Pattern(regexp = "^[0-9]{13}$", message = "Podaj trzynastocyfrowy numer ISBN")
+    private String isbn;
+
+    @Pattern(regexp = "^[1-9][0-9]{1,3}$", message = "Podaj max. czterocyfrową liczbę")
+    private String liczbaEgzemplarzy;
+
+    @Pattern(regexp = "^[1-9][0-9]{0,3}\\.[0-9]{2}$", message = "Podaj cenę książki w formacie 'X.YY' np. 24.99 [zł]")
+    private String cenaZaKsiazke;
 
     @ManyToOne
     @JoinColumn (name = "id_publisher")
     private Publisher publisher;
-
-
 
     @ManyToMany (mappedBy = "books")
     private Set<Author> authors = new HashSet<>();
@@ -27,7 +38,6 @@ public class Book {
     @CollectionTable(name="Map_books_authors", joinColumns=@JoinColumn(name="Map_id"))
     @MapKeyColumn (name = "Key_author_Id")
     @Column (name = "Value_book_Id")
-//    @Transient
     private  Map<Integer, Integer> book_map = new TreeMap<Integer, Integer>();
 
     public  void setBook_map(Integer klucz_idAutor, Integer wartosc_idKsiazka) {
@@ -53,7 +63,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String tytul, Integer rokWydania, Long isbn, Integer liczbaEgzemplarzy, Integer cenaZaKsiazke, Set<Author> authors) {
+    public Book(String tytul, Integer rokWydania, String isbn, String liczbaEgzemplarzy, String cenaZaKsiazke, Set<Author> authors) {
         this.tytul = tytul;
         this.rokWydania = rokWydania;
         this.isbn = isbn;
@@ -62,7 +72,7 @@ public class Book {
         this.authors = authors;
     }
 
-    public Book(String tytul, Integer rokWydania, Long isbn, Integer liczbaEgzemplarzy, Integer cenaZaKsiazke) {
+    public Book(String tytul, Integer rokWydania, String isbn, String liczbaEgzemplarzy, String cenaZaKsiazke) {
         this.tytul = tytul;
         this.rokWydania = rokWydania;
         this.isbn = isbn;
@@ -70,7 +80,7 @@ public class Book {
         this.cenaZaKsiazke = cenaZaKsiazke;
     }
 
-    public Book(Integer id_ksiazka, String tytul, Integer rokWydania, Long isbn, Integer liczbaEgzemplarzy, Integer cenaZaKsiazke) {
+    public Book(Integer id_ksiazka, String tytul, Integer rokWydania, String isbn, String liczbaEgzemplarzy, String cenaZaKsiazke) {
         this.id_ksiazka = id_ksiazka;
         this.tytul = tytul;
         this.rokWydania = rokWydania;
@@ -120,27 +130,27 @@ public class Book {
         this.rokWydania = rokWydania;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public Integer getLiczbaEgzemplarzy() {
+    public String getLiczbaEgzemplarzy() {
         return liczbaEgzemplarzy;
     }
 
-    public void setLiczbaEgzemplarzy(Integer liczbaEgzemplarzy) {
+    public void setLiczbaEgzemplarzy(String liczbaEgzemplarzy) {
         this.liczbaEgzemplarzy = liczbaEgzemplarzy;
     }
 
-    public Integer getCenaZaKsiazke() {
+    public String getCenaZaKsiazke() {
         return cenaZaKsiazke;
     }
 
-    public void setCenaZaKsiazke(Integer cenaZaKsiazke) {
+    public void setCenaZaKsiazke(String cenaZaKsiazke) {
         this.cenaZaKsiazke = cenaZaKsiazke;
     }
 

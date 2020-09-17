@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj książkę do zbioru księgarni</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/mainStyle.css" th:href="@{/mainStyle.css}"  rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-color">
+    <ul>
+        <li>
+            <img class="navbar-image" src="../images/book-icon.png"  alt="ikona książki">
+        </li>
+        <li class="navbar-text">
+            <a href="/pokaz2">Strona główna</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/form'}">Dodaj książkę</a>
+        </li>
+        <li class="navbar-text">
+            <a th:href="${'/onas'}">O nas</a>
+        </li>
+    </ul>
+</nav>
+
+<!--<form class="form" action="http://www.localhost:8080/dodaj" th:method="post">-->
+<form class="form" th:action="@{/dodaj}" th:method="post">
+    <!--    <p th:if="${error} == true" th:text="W formularzu wprowadzono wadliwe dane">YEp</p>-->
+    <table>
+        <tr>
+            <td colspan="2" class="one-object-form"> Wprowadź informacje dotyczące książki</td>
+        </tr>
+        <tr>
+            <td><label  for="tytul">Tytuł:</label></td>
+            <td><input type="text"  th:field="*{book.tytul}" placeholder="Wprowadź tytuł ksiązki"  name ="tytul" id="tytul" ></td>
+            <td th:if="${#fields.hasErrors('book.tytul')}" th:errors="*{book.tytul}"> Tytuł blad</td>
+        </tr>
+        <tr>
+            <td><label for="rok wydania">Rok wydania:</label> </td>
+            <td><input type="text"  th:field="*{book.rokWydania}" placeholder="Wprowadź rok wydania"  name ="rok wydania" id="rok wydania" ></td>
+            <td th:if="${#fields.hasErrors('book.rokWydania')}" th:errors="*{book.rokWydania}"> rok wydania blad</td>
+        </tr>
+        <tr>
+            <td><label for="isbn">Numer ISBN:</label> </td>
+            <td><input type="text"  th:field="*{book.isbn}" placeholder="Wprowadź numer isbn"  name ="isbn" id="isbn" ></td>
+            <td th:if="${#fields.hasErrors('book.isbn')}" th:errors="*{book.isbn}"> isbn blad</td>
+        </tr>
+        <tr>
+            <td><label for="egzemplarz">Liczba egzemplarzy:</label> </td>
+            <td><input type="text"  th:field="*{book.liczbaEgzemplarzy}" placeholder="Podaj liczbę egzemplarzy"   id="egzemplarz" ></td>
+            <td th:if="${#fields.hasErrors('book.liczbaEgzemplarzy')}" th:errors="*{book.liczbaEgzemplarzy}"> liczba egzemplarzy blad</td>
+        </tr>
+        <tr>
+            <td><label for="cena">Cena za sztukę [zł]:</label> </td>
+            <td><input type="text"  th:field="*{book.cenaZaKsiazke}" placeholder="Podaj cenę za książkę"   id="cena" ></td>
+            <td th:if="${#fields.hasErrors('book.cenaZaKsiazke')}" th:errors="*{book.cenaZaKsiazke}"> cena blad</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="one-object-form"> Wprowadź informacje dotyczące autora</td>
+        </tr>
+        <tr>
+            <td><label for="imie">Imię:</label> </td>
+            <td><input type="text" th:field="*{author.imie}" placeholder="Podaj imię autora" id="imie"> </td>
+            <td th:if="${#fields.hasErrors('author.imie')}" th:errors="*{author.imie}"> Imie blad</td>
+        </tr>
+        <tr>
+            <td><label for="Nazwisko">Nazwisko:</label> </td>
+            <td><input type="text" th:field="*{author.nazwisko}" placeholder="Podaj nazwikso autora" id="Nazwisko" > </td>
+            <td th:if="${#fields.hasErrors('author.nazwisko')}" th:errors="*{author.nazwisko}" > Nazwisko blad</td>
+<!--            <td> <input name="nazwisko"></td>-->
+        </tr>
+        <tr>
+            <td><label for="publikacje">Liczba publikacji:</label> </td>
+            <td><input type="text" th:field="*{author.liczbaPublikacji}" placeholder="Podaj liczbę publikacji autora" id="publikacje"></td>
+            <td th:if="${#fields.hasErrors('author.liczbaPublikacji')}" th:errors="*{author.liczbaPublikacji}">Liczba publikacji blad </td>
+<!--            <td><input name="liczbaPublikacji"></td>-->
+        </tr>
+        <tr>
+            <td><label for="telefonA">Numer telefonu:</label> </td>
+            <td><input type="text" th:field="*{author.telefonAutora}" placeholder="Podaj numer telefonu autora" id="telefonA"></td>
+            <td th:if="${#fields.hasErrors('author.telefonAutora')}" th:errors="*{author.telefonAutora}">Telefon autora blad </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="one-object-form"> Wprowadź informacje dotyczące wydawnictwa</td>
+        </tr>
+        <tr>
+            <td><label for="nazwaP">Nazwa:</label> </td>
+            <td><input  type="text" th:field="*{publisher.namePublisher}" placeholder="Podaj nazwę wydawnictwa" id="nazwaP"></td>
+            <td th:if="${#fields.hasErrors('publisher.namePublisher')}" th:errors="*{publisher.namePublisher}">Nazwa wyd. blad </td>
+        </tr>
+        <tr>
+            <td><label for="miasto">Miasto:</label> </td>
+            <td><input type="text" th:field="*{publisher.cityPublisher}" placeholder="Podaj miasto wydawnictwa" id="miasto"></td>
+            <td th:if="${#fields.hasErrors('publisher.cityPublisher')}" th:errors="*{publisher.cityPublisher}">Miasto blad </td>
+        </tr>
+        <tr>
+            <td><label for="telefonP">Numer telefonu:</label> </td>
+            <td><input type="text" th:field="*{publisher.phonePublisher}" placeholder="Podaj numer telefonu wydaw." id="telefonP"></td>
+            <td th:if="${#fields.hasErrors('publisher.phonePublisher')}" th:errors="*{publisher.phonePublisher}">Miasto blad </td>
+        </tr>
+        <tr>
+            <td  colspan="2">
+                <input  type="submit">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<footer>
+    <pre> Web page author: Karol Kiszteliński    |    Copyright © 2020</pre>
+</footer>
+
+</body>
+</html>

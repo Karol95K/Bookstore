@@ -1,6 +1,7 @@
 package pl.horyzont.praca.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.*;
 
 @Entity
@@ -8,10 +9,18 @@ public class Author {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id_autor;
+
+    @Pattern(regexp = "^[A-Ża-ż]{2,50}$", message = "Wykorzystaj litery z zakresu 'a-ż' oraz 'A-Ż'. Podaj od 2 do 50 liter.")
     private String imie;
+
+    @Pattern(regexp = "^[A-Ża-ż]{2,100}$", message = "Wykorzystaj litery z zakresu 'a-ż' oraz 'A-Ż'. Podaj od 2 do 100 liter.")
     private String nazwisko;
-    private Integer liczbaPublikacji;
-    private Integer telefonAutora;
+
+    @Pattern(regexp = "^[1-9][\\d]{0,3}$", message = "Podaj liczbę max. czterocyfrową.")
+    private String liczbaPublikacji;
+
+    @Pattern(regexp = "^[\\d]{9,15}$", message = "Podaj numer składający się z 9-15 cyfr.")
+    private String telefonAutora;
 
     @ManyToMany (cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable (
@@ -37,14 +46,14 @@ public class Author {
     public Author() {
     }
 
-    public Author(String imie, String nazwisko, Integer liczbaPublikacji, Integer telefonAutora) {
+    public Author(String imie, String nazwisko, String liczbaPublikacji, String telefonAutora) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.liczbaPublikacji = liczbaPublikacji;
         this.telefonAutora = telefonAutora;
     }
 
-    public Author(Integer id_autor, String imie, String nazwisko, Integer liczbaPublikacji, Integer telefonAutora) {
+    public Author(Integer id_autor, String imie, String nazwisko, String liczbaPublikacji, String telefonAutora) {
         this.id_autor = id_autor;
         this.imie = imie;
         this.nazwisko = nazwisko;
@@ -92,19 +101,19 @@ public class Author {
         this.nazwisko = nazwisko;
     }
 
-    public Integer getLiczbaPublikacji() {
+    public String getLiczbaPublikacji() {
         return liczbaPublikacji;
     }
 
-    public void setLiczbaPublikacji(Integer liczbaPublikacji) {
+    public void setLiczbaPublikacji(String liczbaPublikacji) {
         this.liczbaPublikacji = liczbaPublikacji;
     }
 
-    public Integer getTelefonAutora() {
+    public String getTelefonAutora() {
         return telefonAutora;
     }
 
-    public void setTelefonAutora(Integer telefonAutora) {
+    public void setTelefonAutora(String telefonAutora) {
         this.telefonAutora = telefonAutora;
     }
 

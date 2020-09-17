@@ -26,31 +26,41 @@
     </ul>
 </nav>
 
-<form class="form" th:action="@{/aktualizuj}">
+<form class="form" th:action="@{/aktualizuj}" >
     <table>
         <tr>
             <td colspan="2" class="one-object-form"> Zaktualizuj informacje dotyczące książki</td>
         </tr>
         <tr>
-            <td>Tytuł</td>
-            <td><input name="tytul" th:field="*{book.tytul}"></td>
+            <td><label for="tytul">Tytuł:</label></td>
+            <td><input type="text" name="tytul" th:field="*{book.tytul}" id="tytul" placeholder="Wprowadź tytuł książki"></td>
+            <td th:if="${#fields.hasErrors('book.tytul')}" th:errors="*{book.tytul}"> Tytuł blad</td>
         </tr>
         <tr>
-            <td>Rok wydania</td>
-            <td><input name="rokWydania" th:field="*{book.rokWydania}"></td>
+            <td><label for="rok wydania">Rok wydania:</label> </td>
+            <td><input type="text"  th:field="*{book.rokWydania}" placeholder="Wprowadź rok wydania"  name ="rok wydania" id="rok wydania" ></td>
+            <td th:if="${#fields.hasErrors('book.rokWydania')}" th:errors="*{book.rokWydania}"> rok wydania blad</td>
         </tr>
         <tr>
-            <td>Numer ISBN</td>
-            <td><input name="isbn" th:field="*{book.isbn}"></td>
+            <td><label for="isbn">Numer ISBN:</label> </td>
+            <td><input type="text"  th:field="*{book.isbn}" placeholder="Wprowadź numer isbn"  name ="isbn" id="isbn" ></td>
+            <td th:if="${#fields.hasErrors('book.isbn')}" th:errors="*{book.isbn}"> isbn blad</td>
         </tr>
         <tr>
-            <td>Liczba egzemplarzy</td>
-            <td><input name="liczbaEgzemplarzy" th:field="*{book.liczbaEgzemplarzy}"></td>
+            <td><label for="egzemplarz">Liczba egzemplarzy:</label> </td>
+            <td><input type="text"  th:field="*{book.liczbaEgzemplarzy}" placeholder="Podaj liczbę egzemplarzy"   id="egzemplarz" ></td>
+            <td th:if="${#fields.hasErrors('book.liczbaEgzemplarzy')}" th:errors="*{book.liczbaEgzemplarzy}"> liczba egzemplarzy blad</td>
         </tr>
         <tr>
-            <td>Cene za sztukę</td>
-            <td><input name="cenaZaKsiazke" th:field="*{book.cenaZaKsiazke}">
-                <input type="hidden" name="id_ksiazka" th:field="*{book.id_ksiazka}"></td>
+            <td><label for="cena">Cena za sztukę [zł]:</label> </td>
+            <td><input type="text"  th:field="*{book.cenaZaKsiazke}" placeholder="Podaj cenę za książkę"   id="cena" ></td>
+            <td th:if="${#fields.hasErrors('book.cenaZaKsiazke')}" th:errors="*{book.cenaZaKsiazke}"> cena blad</td>
+<!--            <input type="hidden" name="id_ksiazka" th:value="${book.id_ksiazka}"></td>-->
+            <input type="hidden" name="id_ksiazka" th:field="*{book.id_ksiazka}"></td>
+
+        </tr>
+        <tr>
+<!--            <input type="hidden" name="id_ksiazka" th:field="*{book.id_ksiazka}"></td>-->
         </tr>
         <tr>
             <td colspan="2">

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.horyzont.praca.Entity.Book;
@@ -54,15 +55,11 @@ public class PublisherController {
 
     @GetMapping ("/aktualizuj_wydawca")
     public String updatePublisher (
-        @RequestParam ("id_publisher") Integer id_wydawca,
-        @RequestParam ("id_ksiazka") Integer id_ksiazka,
-        @RequestParam("namePublisher") String namePublisher,
-        @RequestParam ("cityPublisher") String cityPublisher,
-        @RequestParam ("phonePublisher") Integer phonePublisher,
+            @ModelAttribute Publisher publisher,
+            @RequestParam ("id_ksiazka") Integer id_ksiazka,
         Model model) throws Exception{
 
         Book book =bookRepo.getOne(id_ksiazka);
-        Publisher publisher= new Publisher(id_wydawca, namePublisher, cityPublisher, phonePublisher);
         publisher.insertBookToList(book);
         publisherRepo.save(publisher);
         book.setPublisher(publisher);

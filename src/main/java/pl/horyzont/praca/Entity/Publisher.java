@@ -1,6 +1,7 @@
 package pl.horyzont.praca.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,17 @@ import java.util.List;
 public class Publisher {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+
     private Integer id_publisher;
+
+    @Pattern(regexp = "^[A-Ża-ż\\s]{2,50}$", message = "Wykorzystaj litery z zakresu 'a-ż' oraz 'A-Ż'. Podaj od 2 do 50 liter.")
     private String namePublisher;
+
+    @Pattern(regexp = "^[A-Ża-ż\\s]{3,50}$", message = "Wykorzystaj litery z zakresu 'a-ż' oraz 'A-Ż'. Podaj od 3 do 50 liter.")
     private String cityPublisher;
-    private Integer phonePublisher;
+
+    @Pattern(regexp = "^[\\d]{9,15}$", message = "Podaj numer składający się z 9-15 cyfr.")
+    private String phonePublisher;
 
     @OneToMany (mappedBy = "publisher", cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private List <Book> bookList= new ArrayList<>();
@@ -25,13 +33,13 @@ public class Publisher {
 
 
 
-    public Publisher(String namePublisher, String city, Integer phonePublisher) {
+    public Publisher(String namePublisher, String city, String phonePublisher) {
         this.namePublisher = namePublisher;
         this.cityPublisher = city;
         this.phonePublisher = phonePublisher;
     }
 
-    public Publisher(Integer id, String namePublisher, String cityPublisher, Integer phonePublisher) {
+    public Publisher(Integer id, String namePublisher, String cityPublisher, String phonePublisher) {
         this.id_publisher = id;
         this.namePublisher = namePublisher;
         this.cityPublisher = cityPublisher;
@@ -70,11 +78,11 @@ public class Publisher {
         this.cityPublisher = cityPublisher;
     }
 
-    public Integer getPhonePublisher() {
+    public String getPhonePublisher() {
         return phonePublisher;
     }
 
-    public void setPhonePublisher(Integer phonePublisher) {
+    public void setPhonePublisher(String phonePublisher) {
         this.phonePublisher = phonePublisher;
     }
 

@@ -30,16 +30,19 @@
 <form class="form" th:action="@{/aktualizuj_wydawca}">
     <table>
         <tr>
-            <td colspan="2" class="one-object-fom">Zaktualizuj informacje o wydawcy</td>
+            <td colspan="2" class="one-object-form">Zaktualizuj informacje o wydawcy</td>
         </tr>
         <tr>
-            <td><input name="nazwa" th:field="*{publisher.namePublisher}"></td>
+            <td><label for="nazwaP">Nazwa:</label> </td>
+            <td><input name="nazwa" th:field="*{publisher.namePublisher}" id="nazwaP"></td>
         </tr>
         <tr>
-            <td><input name="nazwa" th:field="*{publisher.cityPublisher}"></td>
+            <td><label for="miasto">Miasto:</label> </td>
+            <td><input name="nazwa" th:field="*{publisher.cityPublisher}" id="miasto"></td>
         </tr>
         <tr>
-            <td><input name="nazwa" th:field="*{publisher.phonePublisher}"></td>
+            <td><label for="telefonP">Numer telefonu:</label> </td>
+            <td><input name="nazwa" th:field="*{publisher.phonePublisher}" id="telefonP"></td>
             <td><input type="hidden" name="id_ksiazka" th:field="*{book.id_ksiazka}"></td>
             <td><input type="hidden" name="id_wydawca" th:field="*{publisher.id_publisher}"></td>
 

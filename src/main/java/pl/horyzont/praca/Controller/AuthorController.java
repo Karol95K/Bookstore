@@ -3,6 +3,7 @@ package pl.horyzont.praca.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,15 +39,11 @@ public class AuthorController {
     // Dodanie autora z formularza
     @RequestMapping(value = "/dodaj_autor")
     public String dodajAutor(
+            @ModelAttribute Author author,
             @RequestParam("id_ksiazka") Integer id_ksiazka,
-            @RequestParam("imie") String imie,
-            @RequestParam("nazwisko") String nazwisko,
-            @RequestParam("liczbaPublikacji") Integer liczbaPublikacji,
-            @RequestParam("telefonAutora") Integer telefonAutora,
             Model model) throws Exception {
 
         Book book = bookRepo.getOne(id_ksiazka);
-        Author author = new Author(imie, nazwisko, liczbaPublikacji, telefonAutora);
 
         author.addBook(book);
         authorRepo.save(author);
@@ -101,12 +98,8 @@ public class AuthorController {
     public String updateAuthor(
             @RequestParam("id_autor") Integer id_autor,
             @RequestParam("id_ksiazka") Integer id_ksiazka,
-            @RequestParam("imie") String imie,
-            @RequestParam("nazwisko") String nazwisko,
-            @RequestParam("liczbaPublikacji") Integer liczbaPublikacji,
-            @RequestParam("telefonAutora") Integer telefonAutora,
+            @ModelAttribute Author author,
             Model model) throws Exception {
-        Author author = new Author(id_autor, imie, nazwisko, liczbaPublikacji, telefonAutora);
         Book book= bookRepo.getOne(id_ksiazka);
 
         author.addBook(book);
@@ -114,11 +107,13 @@ public class AuthorController {
         authorRepo.save(author);
 
         model.addAttribute("book", book);
-        model.addAttribute("author", author);
         System.out.println("\n"+author);
         System.out.println(book);
 
-        return "Widok";
+        Set<Integer> authors_id = book.getKeysByValue(id_ksiazka);
+        model.addAttribute("author",authorRepo.findAllById(authors_id));
+
+        return "/author/Pokaz_autor";   //"Widok"
     }
 
     // Kasowanie jednego autora
